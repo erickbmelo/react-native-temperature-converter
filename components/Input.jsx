@@ -8,8 +8,11 @@ export default function Input(props) {
                 placeholder="Digite a temperatura"
                 maxLength={3}
                 defaultValue={props.defaultValue.toString()}
+                onChangeText={ (text) => {
+                    props.onChange(text)
+                }}
             />
-            <Text style={s.unit}>ºC</Text>
+            <Text style={s.unit}>{props.unit}</Text>
         </View>
     )
 }
