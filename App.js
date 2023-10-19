@@ -6,6 +6,7 @@ import Input from './components/Input';
 import DisplayTemperature from './components/DisplayTemperature';
 import { useState } from 'react';
 import { convertTemperatureTo, getOppositeUnit } from './utils/temperature';
+import ButtonConvert from './components/ButtonConvert';
 
 export default function App() {
   const [inputValue, setInputValue] = useState(0)
@@ -34,7 +35,11 @@ export default function App() {
               defaultValue={0}
               unit={currentUnit}
             />
-            <Text>Button</Text>
+            <ButtonConvert
+              onPress={() => {
+                setCurrentUnit(oppositeUnit)
+              }}
+              unit={oppositeUnit}/>
           </View>
         </SafeAreaView>
       </SafeAreaProvider>

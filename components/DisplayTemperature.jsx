@@ -1,4 +1,4 @@
-import {View, StyleSheet, TextInput, Text} from "react-native"
+import {StyleSheet, Text} from "react-native"
 
 export default function DisplayTemperature(props) {
     return (
