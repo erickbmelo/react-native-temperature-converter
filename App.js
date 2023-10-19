@@ -5,10 +5,20 @@ import hotBackground from './assets/hot.png';
 import Input from './components/Input';
 import DisplayTemperature from './components/DisplayTemperature';
 import { useState } from 'react';
+import { convertTemperatureTo, getOppositeUnit } from './utils/temperature';
 
 export default function App() {
   const [inputValue, setInputValue] = useState(0)
   const [currentUnit, setCurrentUnit] = useState("ºC")
+  const oppositeUnit = getOppositeUnit(currentUnit)
+
+  function getConvertedTemperature(){
+    if(isNaN(inputValue)){
+      return ""
+    } else{
+      return convertTemperatureTo(inputValue, oppositeUnit).toFixed(1)
+    }
+  }
 
   return (
     <ImageBackground style={s.backgroundImg} source={hotBackground}>
@@ -16,8 +26,8 @@ export default function App() {
         <SafeAreaView style={s.root}>
           <View style={s.workspace}>
             <DisplayTemperature
-              temperature={inputValue}
-              unit={currentUnit}
+              unit={oppositeUnit}
+              temperature={getConvertedTemperature()}
             />
             <Input
               onChange={setInputValue}

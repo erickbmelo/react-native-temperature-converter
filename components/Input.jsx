@@ -6,8 +6,9 @@ export default function Input(props) {
             <TextInput
                 style={s.input}
                 placeholder="Digite a temperatura"
-                maxLength={3}
+                maxLength={4}
                 defaultValue={props.defaultValue.toString()}
+                keyboardType="number-pad"
                 onChangeText={ (text) => {
                     props.onChange(text)
                 }}
