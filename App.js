@@ -2,16 +2,23 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import hotBackground from './assets/hot.png';
+import coldBackground from './assets/cold.png';
 import Input from './components/Input';
 import DisplayTemperature from './components/DisplayTemperature';
-import { useState } from 'react';
-import { convertTemperatureTo, getOppositeUnit } from './utils/temperature';
+import { useEffect, useState } from 'react';
+import { convertTemperatureTo, getOppositeUnit, isIceTemperature } from './utils/temperature';
 import ButtonConvert from './components/ButtonConvert';
 
 export default function App() {
   const [inputValue, setInputValue] = useState(0)
   const [currentUnit, setCurrentUnit] = useState("ºC")
+  const [currentBackground, setCurrentBackground] = useState(coldBackground)
   const oppositeUnit = getOppositeUnit(currentUnit)
+
+  useEffect(() => {
+    const isCold = isIceTemperature(inputValue, currentUnit)
+    setCurrentBackground(isCold ? coldBackground : hotBackground)
+  }, [inputValue, currentUnit])
 
   function getConvertedTemperature(){
     if(isNaN(inputValue)){
@@ -22,7 +29,7 @@ export default function App() {
   }
 
   return (
-    <ImageBackground style={s.backgroundImg} source={hotBackground}>
+    <ImageBackground style={s.backgroundImg} source={currentBackground}>
       <SafeAreaProvider>
         <SafeAreaView style={s.root}>
           <View style={s.workspace}>
